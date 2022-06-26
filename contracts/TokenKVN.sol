@@ -1,13 +1,14 @@
 // SPDX-License-Identifier: GPL-3.0
 
-pragma solidity >=0.7.0 <0.9.0;
+pragma solidity >=0.8.0 <0.9.0;
 
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Burnable.sol";
 import "@openzeppelin/contracts/security/Pausable.sol";
+import "@openzeppelin/contracts/utils/introspection/ERC165.sol";
 
-contract TokenKVN is AccessControl, ERC20("Kevin Token", "KVN"), ERC20Burnable, Pausable {
+contract TokenKVN is ERC20("Kevin Token", "KVN"), ERC165, AccessControl, ERC20Burnable, Pausable {
 
     bytes32 public constant ROL_ADMIN = keccak256("ROL_ADMIN");
 
@@ -32,6 +33,10 @@ contract TokenKVN is AccessControl, ERC20("Kevin Token", "KVN"), ERC20Burnable, 
 
     function unpause() public onlyAdmin {
         _unpause();
+    }
+
+    function supportsInterface(bytes4 interfaceId) public view virtual override(ERC165, AccessControl) returns (bool) {
+        return interfaceId == type(IERC20).interfaceId || super.supportsInterface(interfaceId);
     }
 
 }
