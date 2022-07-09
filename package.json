@@ -1,14 +1,14 @@
 {
-  "name": "demosopenzeppelin",
+  "name": "contractsopenzeppelin",
   "version": "1.0.0",
-  "description": "Demos OpenZeppelin",
+  "description": "Contracts OpenZeppelin",
   "main": "index.js",
   "scripts": {},
   "author": "Kevin",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com-kevin:KevinFiorentino/DemosOpenZeppelin.git"
+    "url": "git@github.com-kevin:KevinFiorentino/ContractsOpenZeppelin.git"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.0"

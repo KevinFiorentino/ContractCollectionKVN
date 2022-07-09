@@ -1,4 +1,4 @@
-## Demo Projects - Solidity - Open Zeppelin
+## Solidity - Open Zeppelin - COntracts
 
 - npm install
 - npx hardhat compile
