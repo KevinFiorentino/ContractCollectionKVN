@@ -10,7 +10,6 @@ const deploy = async () => {
   console.log("Contract is deployed at:", deployed.address);
 };
 
-
 deploy()
   .then(() => process.exit(0))
   .catch((error) => {
