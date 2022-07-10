@@ -23,4 +23,15 @@ describe('CollectionKVN Contract Test', function () {
     expect(2).to.be.equal(await kvn.getCurrentCounter());
   });
 
+
+  it('Get Image URI', async function () {
+
+    const [owner, addr1, addr2] = await ethers.getSigners();
+
+    await kvn.connect(addr1).mint();
+    const token = await kvn.tokenURI(1);
+
+    console.log('token', token)
+  });
+
 });

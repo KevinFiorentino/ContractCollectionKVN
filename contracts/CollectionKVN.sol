@@ -8,12 +8,13 @@ import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/utils/Base64.sol";
 import "./CalculateDNA.sol";
 
-contract CollectionKVN is ERC721, ERC721Enumerable {
+contract CollectionKVN is ERC721, ERC721Enumerable, CalculateDNA {
 
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIdCounter;
 
     uint256 public maxSupply;
+    mapping(uint256 => uint256) public tokenDNA;
 
     constructor(uint256 _maxSupply) ERC721("CollectionKVN", "KVNFT") {
         maxSupply = _maxSupply;
@@ -24,11 +25,12 @@ contract CollectionKVN is ERC721, ERC721Enumerable {
     }
 
     function mint() public {
-        uint256 tokenId = getCurrentCounter();
+        uint256 currentTokenId = getCurrentCounter();
 
-        require(tokenId < maxSupply, "No CollectionKVN left.");
+        require(currentTokenId < maxSupply, "No CollectionKVN left.");
 
-        _safeMint(msg.sender, tokenId);
+        tokenDNA[currentTokenId] = deterministicPseudoRandomDNA(currentTokenId, msg.sender);
+        _safeMint(msg.sender, currentTokenId);
         _tokenIdCounter.increment();
     }
 
@@ -38,17 +40,60 @@ contract CollectionKVN is ERC721, ERC721Enumerable {
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         require(_exists(tokenId), "ERC721 Metadata: URI query for nonexistent token.");
 
+        uint256 dna = tokenDNA[tokenId];
+        string memory image = imageByDNA(dna);
+
         string memory jsonURI = Base64.encode(
             abi.encodePacked(
                 '{',
                     '"name" "CollectionKVN #', tokenId, '",'
                     '"description": "CollectionKVN are randomized Avataaars stored on chain to teach DApp development on Platzi",',
-                    '"image": "', '// TODO: BUILD IMAGE URL', '"'
+                    '"image": "', image, '"'
                 '}'
             )
         );
 
         return string(abi.encodePacked("data:application/json;base64,", jsonURI));
+    }
+
+
+    /* ********** Build URI ********** */
+
+    function _baseURI() internal pure override returns(string memory) {
+        return "https://avataaars.io/";
+    }
+
+    function _paramsURI(uint256 _dna) internal view returns(string memory) {
+        string memory params;
+
+        // Fix callstack too deep with another scope
+        {
+            params = string(abi.encodePacked(
+                "accessoriesType=", getAccessoriesType(_dna),
+                "&clotheColor=", getClotheColor(_dna),
+                "&clotheType=", getClotheType(_dna),
+                "&eyeType=", getEyeType(_dna),
+                "&eyeBrowType=", getEyeBrowType(_dna),
+                "&facialHairColor=", getFacialHairColor(_dna),
+                "&facialHairType=", getFacialHairType(_dna),
+                "&hairColor=", getHairColor(_dna),
+                "&hatColor=", getHatColor(_dna),
+                "&graphicType=", getGraphicType(_dna),
+                "&mouthType=", getMouthType(_dna),
+                "&skinColor=", getSkinColor(_dna)
+            ));
+        }
+
+        params = string(abi.encodePacked(params, "&topType=", getTopType(_dna)));
+
+        return params;
+    }
+
+    function imageByDNA(uint256 _dna) public view returns (string memory) {
+        string memory baseURI = _baseURI();
+        string memory paramsURI = _paramsURI(_dna);
+
+        return string(abi.encodePacked(baseURI, "?", paramsURI));
     }
 
 
