@@ -5,7 +5,7 @@ const deploy = async () => {
   console.log("Deploying contract with the account:", deployer.address);
 
   const CollectionKVN = await ethers.getContractFactory("CollectionKVN");
-  const deployed = await CollectionKVN.deploy();
+  const deployed = await CollectionKVN.deploy(100);
 
   console.log("Contract is deployed at:", deployed.address);
 };
