@@ -1,14 +1,14 @@
 {
-  "name": "contractsopenzeppelin",
+  "name": "contract-collection-kvn",
   "version": "1.0.0",
-  "description": "Contracts OpenZeppelin",
+  "description": "Portal NFTs - Solidity - OpenZeppelin - Hardhat",
   "main": "index.js",
   "scripts": {},
   "author": "Kevin",
   "license": "ISC",
   "repository": {
     "type": "git",
-    "url": "git@github.com-kevin:KevinFiorentino/ContractsOpenZeppelin.git"
+    "url": "git@github.com-kevin:KevinFiorentino/ContractCollectionKVN.git"
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.7.0"

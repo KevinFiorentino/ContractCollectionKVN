@@ -1,9 +1,6 @@
-## Solidity Contracts - OpenZeppelin & HardHat
+## ContractCollectionKVN - OpenZeppelin & HardHat
 
 - npm install
-- npx hardhat compile
-
-#### CollectionKVN - NFT
 
 - npx hardhat compile
 - npx hardhat test test/CollectionKVN.test.js
