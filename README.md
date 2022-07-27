@@ -1,8 +1,9 @@
 ## NFTs Platform
 #### Smart Contract, Solidity, OpenZeppelin & HardHat
 
-[Smart Contract Address](https://rinkeby.etherscan.io/address/0x5eb362dDF7737F111FEC978019205AE7359427A9)
-[OpenSea NFTs](https://testnets.opensea.io/collection/collectionkvn)
+- [collectionkvn.eth](https://app.ens.domains/name/collectionkvn.eth/details)
+- [Smart Contract Address](https://rinkeby.etherscan.io/address/0x5eb362dDF7737F111FEC978019205AE7359427A9)
+- [OpenSea NFTs](https://testnets.opensea.io/collection/collectionkvn)
 
 ##### Run project
 
